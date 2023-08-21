@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
+import { api_key } from '../api-key.json'
 
 export const WeatherApp = () => {
     const urlBase = 'https://api.openweathermap.org/data/2.5/weather'
-    const API_KEY = '32cc4c9a51b3cd4e72bb3ef5eba11ba3'
+    const API_KEY = api_key
     const [ciudad, setCuidad] = useState('')
     const [dataClima, setDataClima] = useState(null)
     const difKelvin = 273.15
@@ -14,23 +15,23 @@ export const WeatherApp = () => {
     const handleSubmit = (event) => {
         event.preventDefault()
         console.log(ciudad)
-        if(ciudad.length > 0){
+        if (ciudad.length > 0) {
             fetchClima()
         }
     }
 
-    const fetchClima = async() => {
-        try{
+    const fetchClima = async () => {
+        try {
             const response = await fetch(`${urlBase}?q=${ciudad}&appid=${API_KEY}`)
             const data = await response.json()
             setDataClima(data)
 
-        }catch(error){
+        } catch (error) {
             console.log('Ocurrio el siguiente problema: ', error)
         }
     }
 
-    
+
     return (
         <div className='container'>
             <h1>Aplicacion del Clima</h1>
